@@ -18,7 +18,7 @@ pontos = 0
 
 #tamanho horizontal do campo minado
 valores = 7
-ind_number = 1
+ind_number = '⬜'
 
 #sistema em loop que adiciona as casas na matriz, que é separada em varias listas
 while len(line1) != valores:
@@ -74,22 +74,62 @@ while explodiu == 0:
         case 4:
             lista_selecionada = line4
             
-    #coordenada horizontal selecionada (local expecifica na lista selecionada)
+    #coordenada horizontal selecionada (local expecifico na lista selecionada)
     local_selecionado2 = int(input('digite o numero da coluna >'))
 
+    #loop que compara cada coluna da lista selecionada com as casas que possuem bomba
     for i in lista_selecionada:
+        
+        #verificação se é uma bomba, caso sim, o jogo acaba
         if local_selecionado2 == selected_number[local_selecionado-1]:
+            
+            #mudar icone para bomba
+            lista_selecionada[local_selecionado2-1] = '💣'
+            
+            #mostrar tabela atual
+            match local_selecionado:
+                case 1:
+                    print(*lista_selecionada)
+                    print(*line2)
+                    print(*line3)
+                    print(*line4)
+                case 2:
+                    print(*line1)
+                    print(*lista_selecionada)
+                    print(*line3)
+                    print(*line4)
+                case 3:
+                    print(*line1)
+                    print(*line2)
+                    print(*lista_selecionada)
+                    print(*line4)
+                case 4:
+                    print(*line1)
+                    print(*line2)
+                    print(*line3)
+                    print(*lista_selecionada)
+            print('----------------------')
+            
+            #aviso de fim de jogo
             print('----------bomba----------')
             print('-------------------------')
             print(f'Voce fez {pontos} pontos!!')
+            
+            #mostrar para o codigo que ele caiu em uma bomba
             explodiu = 1
+            
+            
             break
-        else:
+        else:# caso não seja
             print('não é bomba')
             
+            #aumentar numero de pontos caso não haja bomba
             pontos +=1
             
-            lista_selecionada[local_selecionado2-1] = ' '
+            #excluir casa selecionada que não é bomba
+            lista_selecionada[local_selecionado2-1] = '🟦' 
+            
+            #mostrar tabela atual
             print('----------------------')
             match local_selecionado:
                 case 1:
