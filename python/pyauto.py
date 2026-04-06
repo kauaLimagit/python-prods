@@ -10,6 +10,7 @@ while continuar == False:
     codemail = input("digite o codigo de email ou digite ( todos ) para verificar Emails e seus codigos>")
     
     if codemail == 'todos':
+        cod = 0
         for i in emails:
             print(f'Email cod={cod} corresponde a {i}')
             print('-----------------------------------------')
