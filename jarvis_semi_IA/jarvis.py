@@ -14,7 +14,7 @@ def ativar():
     playsound(f'./respostas/ativacao{codfala}.mp3')
 
 def play_song(t):
-    playsound('./respostas\Repsom.mp3')
+    playsound('./respostas/Repsom.mp3')
 
     startnome = 0
     nome = ''
@@ -32,7 +32,7 @@ def play_song(t):
             startnome = 1
 
     sleep(1)
-    playsound(f'./musicas\{nome.lower()}.mp3')
+    playsound(f'./musicas/{nome.lower()}.mp3')
 
 def pesquisa(t):
 
@@ -45,7 +45,7 @@ def pesquisa(t):
         elif i == ' ':
             startpesquisa = 1
 
-    playsound('./respostas\pesquisa.mp3')
+    playsound('./respostas/pesquisa.mp3')
 
     seguir = False
 
@@ -68,10 +68,10 @@ def pesquisa(t):
             seguir = True
     
 def standby():
-    playsound('./respostas\standby.mp3')
+    playsound('./respostas/standby.mp3')
 
 def desligar():
-    playsound('./respostas\desligar.mp3')
+    playsound('./respostas/desligar.mp3')
 
 def aujanela(t):
     playsound('./respostas/aumentarjanela.mp3')
@@ -93,8 +93,8 @@ def aujanela(t):
     return valor_a_aumentar
 
 def redjanela():
-    playsound('./respostas\janelapadrao.mp3')
-    return 0.5
+    playsound('./respostas/janelapadrao.mp3')
+    return 0.7
 
 def abrirapp(t):
     playsound('./respostas/abrirapp.mp3')
@@ -116,15 +116,54 @@ def abrirapp(t):
         
     while True:
         abrir = pg.locateOnScreen('imgs/abrirapp.png', confidence=0.7)
-        if abrirapp != None:
+        if abrir != None:
             pg.hotkey('Enter')
             break
     
-
-
+def spotfy():
+    pg.hotkey('Win', 'r')
+    while True:
+        cmd = pg.locateOnScreen('imgs/cmd.png', confidence=0.7)
+        if cmd != None:
+            pg.typewrite('chrome')
+            pg.hotkey('Enter')
+            break
+        
+    while True:
+        google = pg.locateOnScreen('imgs/google.png', confidence=0.5)
+        if google != None:
+            pg.typewrite('spotfy.com')
+            pg.hotkey('Enter')
+            break
+        
+    while True:
+        try:
+            playlist = pg.locateCenterOnScreen('imgs/playlist.png', confidence=0.8)
+            if playlist != None:
+                pg.click(playlist.x, playlist.y)
+                pg.click()
+                pg.click()
+                break
+        except:
+            try:
+                playlist = pg.locateCenterOnScreen('imgs/playlist.png', confidence=0.8)
+                if playlist != None:
+                    pg.moveTo(playlist.x, playlist.y)
+                    break
+            except:
+                print('não achei')
+            
+    while True:
+        play = pg.locateCenterOnScreen('imgs/play.png', confidence=0.5)
+        if google != None:
+            pg.click(play.x,play.y)
+            break
+        
+spotfy()
+    
 rec = sr.Recognizer()
 
-janela = 0.5
+janela = 0.7
 
 with sr.Microphone() as mic:
     while desativar == False:
@@ -140,23 +179,23 @@ with sr.Microphone() as mic:
             texto = rec.recognize_google(audio, language='pt-BR')
             print(f'voce disse {texto}')
 
-            if 'Jarvis' in texto or 'Tiago' in texto or 'Charles' in texto or 'Thiago' in texto:
+            if 'Jarvis' in texto or 'Tiago' in texto or 'Charles' in texto or 'Thiago' in texto or 'Jar' in texto:
                 ouvir = True
                 ativar()
-            elif 'tocar' in texto or 'escutar' in texto and ouvir:
+            elif ('tocar' in texto or 'escutar' in texto) and ouvir:
                 play_song(texto)
-            elif 'pesquisar' in texto and ouvir:
+            elif ('pesquisar' in texto or 'P esquisar' in texto) and ouvir:
                 pesquisa(texto)
-            elif 'stand-by' in texto or 'sair' in texto or 'standy by' in texto and ouvir:
+            elif ('stand-by' in texto or 'sair' in texto or 'standy by' in texto) and ouvir:
                 standby()
                 ouvir = False
-            elif 'aumentar janela' in texto and ouvir:
+            elif ('aumentar janela' in texto or 'aumentar a janela' in texto) and ouvir:
                 janela = aujanela(texto)
-            elif 'reduzir janela' in texto or 'diminuir janela' in texto or 'voltar janela' in texto and ouvir:
+            elif ('reduzir janela' in texto or 'diminuir janela' in texto or 'voltar janela' in texto) and ouvir:
                 janela = redjanela()
-            elif 'abrir' in texto or 'executar' in texto and ouvir:
+            elif ('abrir' in texto or 'executar' in texto) and ouvir:
                 abrirapp(texto)
-            elif 'desligar' in texto and ouvir == True:
+            elif ('desligar' in texto or 'amoleça meu') and ouvir == True:
                 desligar()
                 sleep(1)
                 desativar = True
