@@ -4,7 +4,7 @@ from time import sleep
 cod = 0
 continuar = False
  
-emails = ['kaua.lima2@fatec.sp.gov.br','vinicius.souza165@fatec.sp.gov.br','aristeu.souza01@fatec.sp.gov.br','caue.nascimento01@fatec.sp.gov.br','joao.silva943@fatec.sp.gov.br','davi.soares4@fatec.sp.gov.br','eduardo.silva338@fatec.sp.gov.br']
+emails = ['kaua.lima2@fatec.sp.gov.br','vinicius.souza165@fatec.sp.gov.br','aristeu.souza01@fatec.sp.gov.br','caue.nascimento01@fatec.sp.gov.br','joao.silva943@fatec.sp.gov.br','davi.soares4@fatec.sp.gov.br','eduardo.silva338@fatec.sp.gov.br','albert.almeida@fatec.sp.gov.br']
 
 while continuar == False:
     codemail = input("digite o codigo de email ou digite ( todos ) para verificar Emails e seus codigos>")
